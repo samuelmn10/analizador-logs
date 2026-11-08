@@ -1,0 +1,11 @@
+[INFO] 2025-01-10 User logged in
+[INFO] 2025-01-10 Session started
+[WARNING] 2025-01-10 Disk usage above 80%
+[ERROR] 2025-01-10 Failed to connect to database
+[INFO] 2025-01-11 User logged out
+[WARNING] 2025-01-11 Slow response from API
+[ERROR] 2025-01-12 Payment service timeout
+[INFO] 2025-01-12 Backup completed
+[INFO] 2025-01-13 Login usuario=María Muñoz correo=maria.munoz@gmail.com
+[INFO] 2025-01-13 Password reset sent correo=soporte@empresa.com.sv
+[WARNING] 2025-01-13 Failed login usuario=José Pérez

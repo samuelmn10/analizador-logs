@@ -1,0 +1,21 @@
+[INFO] 2025-01-10 User logged in
+[ERROR] 2025-01-10 Failed to connect to database
+[WARNING] Invalid password attempt
+[ERROR] 2025-13-45 Impossible date
+[INFO] 2025-02-30 February 30 does not exist
+[info] 2025-01-11 Lowercase level
+
+[DEBUG] 2025-01-11 Unknown level
+User logged in without level
+[INFO] 2025-01-12
+[] 2025-01-12 Empty level
+[WARNING] 10/01/2025 Date in another format
+[ERROR] 2025-01-12 Disk full
+[INFO] 2025-01-13 Login usuario=juan pérez correo=juan@gmail.com
+[INFO] 2025-01-13 Login usuario=Juan correo=juan@gmail.com
+[WARNING] 2025-01-13 Login usuario=Ana López correo=ana.gmail.com
+[ERROR] 2025-01-13 Login usuario=Ana López correo=ana@gmail
+[ERROR] 2025-01-13 Login usuario=Ana López correo=@gmail.com
+[INFO] 2025-01-13 Login usuario= correo=ana@gmail.com
+[INFO] 2025-01-13 Login usuario=Ana López correo=ana@@gmail.com
+[ERROR] 2025-01-13 Login usuario=Juan3 Pérez correo=juan@gmail.com
