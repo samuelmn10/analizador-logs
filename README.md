@@ -13,6 +13,8 @@ Script en Python que analiza un archivo de texto con registros de eventos (logs)
 
 ## Cómo ejecutarlo
 
+> En Mac (y algunos Linux) el comando se llama `python3` en vez de `python`.
+
 Para indicar el archivo al ejecutar:
 
 ```bash
@@ -36,7 +38,7 @@ python -m unittest -v test_analizador.py
 ```
 analizador_logs/
 ├── analizador_logs.py      # Script principal
-├── test_analizador.py      # Pruebas automáticas (25 casos)
+├── test_analizador.py      # Pruebas automáticas (28 casos)
 ├── pruebas/
 │   ├── logs_buenos.txt     # Archivo bien formado
 │   ├── logs_malos.txt      # Archivo con errores e inconsistencias
@@ -94,6 +96,8 @@ Formato: `identificador @ servicio.dominio`, por ejemplo `juan.perez@gmail.com`.
 | Sin identificador | `@gmail.com` | falta el identificador antes de la @ |
 | Sin servicio | `ana@` | falta el servicio después de la @ |
 | Sin dominio | `ana@gmail` | el servicio no tiene dominio (ej: .com) |
+| Dos puntos seguidos | `ana..lopez@gmail.com` | tiene dos puntos seguidos |
+| Identificador empieza o termina con punto | `.ana@gmail.com`, `ana.@gmail.com` | el identificador no puede empezar ni terminar con punto |
 | Símbolos raros o dominio de 1 letra | `ana!@gmail.com`, `ana@gmail.c` | caracteres no permitidos o dominio inválido |
 
 Si una línea **no trae** los campos `usuario=` o `correo=`, no es un error, porque no todos los eventos involucran a un usuario.
@@ -139,7 +143,7 @@ Salida obtenida:
 
 ### Prueba 2: archivo con errores (`pruebas/logs_malos.txt`)
 
-Contiene 21 líneas: 1 vacía, 4 correctas y 16 con algún problema.
+Contiene 22 líneas: 1 vacía, 4 correctas y 17 con algún problema.
 
 | Línea | Contenido | Resultado esperado |
 |---|---|---|
@@ -164,15 +168,16 @@ Contiene 21 líneas: 1 vacía, 4 correctas y 16 con algún problema.
 | 19 | `[INFO] ... usuario= correo=ana@gmail.com` | Nombre vacío |
 | 20 | `[INFO] ... usuario=Ana López correo=ana@@gmail.com` | Correo con doble @ |
 | 21 | `[ERROR] ... usuario=Juan3 Pérez correo=juan@gmail.com` | Nombre con número |
+| 22 | `[INFO] ... usuario=Ana López correo=ana..lopez@gmail.com` | Correo con dos puntos seguidos |
 
 | Dato | Esperado | Obtenido |
 |---|---|---|
-| Total de eventos (sin contar la vacía) | 20 | 20 ✅ |
-| INFO (líneas 1, 5, 6, 10, 14, 15, 19, 20) | 8 | 8 ✅ |
+| Total de eventos (sin contar la vacía) | 21 | 21 ✅ |
+| INFO (líneas 1, 5, 6, 10, 14, 15, 19, 20, 22) | 9 | 9 ✅ |
 | WARNING (líneas 3, 12, 16) | 3 | 3 ✅ |
 | ERROR (líneas 2, 4, 13, 17, 18, 21) | 6 | 6 ✅ |
 | Sin tipo válido (líneas 8, 9, 11) | 3 | 3 ✅ |
-| Mal formateadas | 16 | 16 ✅ |
+| Mal formateadas | 17 | 17 ✅ |
 
 Salida obtenida:
 
@@ -180,12 +185,12 @@ Salida obtenida:
 ==================================================
  RESUMEN DE LOGS: pruebas/logs_malos.txt
 ==================================================
- Total de eventos:           20
-   - INFO                     8
+ Total de eventos:           21
+   - INFO                     9
    - WARNING                  3
    - ERROR                    6
    - Sin tipo válido          3
- Líneas mal formateadas:     16
+ Líneas mal formateadas:     17
 ==================================================
  DETALLE DE LÍNEAS CON PROBLEMAS
 ==================================================
@@ -221,6 +226,8 @@ Salida obtenida:
     -> correo inválido "ana@@gmail.com": tiene más de una @
  Línea 21: [ERROR] 2025-01-13 Login usuario=Juan3 Pérez correo=juan@gmail.com
     -> nombre inválido "Juan3 Pérez": solo puede tener letras
+ Línea 22: [INFO] 2025-01-13 Login usuario=Ana López correo=ana..lopez@gmail.com
+    -> correo inválido "ana..lopez@gmail.com": tiene dos puntos seguidos
 ==================================================
 ```
 
@@ -247,7 +254,7 @@ Resultado esperado: el programa avisa y no muestra un resumen en ceros. ✅
 ```
 $ python -m unittest -v test_analizador.py
 ...
-Ran 25 tests in 0.005s
+Ran 28 tests in 0.004s
 
 OK
 ```

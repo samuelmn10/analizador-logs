@@ -121,6 +121,19 @@ class TestCorreos(unittest.TestCase):
         r = analizar_linea("[INFO] 2025-01-13 Reset correo=ana@@gmail.com")
         self.assertTrue(any("más de una @" in p for p in r["problemas"]))
 
+    def test_correo_puntos_seguidos(self):
+        # Caso que la regex sugerida por la IA aceptaba como válido.
+        r = analizar_linea("[INFO] 2025-01-13 Reset correo=ana..lopez@gmail.com")
+        self.assertTrue(any("dos puntos seguidos" in p for p in r["problemas"]))
+
+    def test_correo_identificador_empieza_con_punto(self):
+        r = analizar_linea("[INFO] 2025-01-13 Reset correo=.ana@gmail.com")
+        self.assertTrue(any("empezar ni terminar con punto" in p for p in r["problemas"]))
+
+    def test_correo_identificador_termina_con_punto(self):
+        r = analizar_linea("[INFO] 2025-01-13 Reset correo=ana.@gmail.com")
+        self.assertTrue(any("empezar ni terminar con punto" in p for p in r["problemas"]))
+
     def test_correo_con_simbolo_no_permitido(self):
         r = analizar_linea("[INFO] 2025-01-13 Reset correo=ana!@gmail.com")
         self.assertTrue(r["problemas"])
@@ -136,9 +149,9 @@ class TestArchivos(unittest.TestCase):
 
     def test_archivo_con_errores(self):
         r = analizar_archivo(CARPETA_PRUEBAS / "logs_malos.txt")
-        self.assertEqual(r["total_eventos"], 20)
-        self.assertEqual(r["por_tipo"], {"INFO": 8, "WARNING": 3, "ERROR": 6})
-        self.assertEqual(r["mal_formateadas"], 16)
+        self.assertEqual(r["total_eventos"], 21)
+        self.assertEqual(r["por_tipo"], {"INFO": 9, "WARNING": 3, "ERROR": 6})
+        self.assertEqual(r["mal_formateadas"], 17)
 
 
 if __name__ == "__main__":

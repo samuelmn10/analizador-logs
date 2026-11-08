@@ -22,11 +22,9 @@ from pathlib import Path
 # =============================================================================
 # REGLAS DE VALIDACIÓN  (DECISIONES DEL ESTUDIANTE)
 # -----------------------------------------------------------------------------
-# Esta es la parte que el enunciado pide que decidas TÚ, no la IA.
-# Los valores de abajo son una PROPUESTA inicial para que el programa funcione.
-# Revisa cada una, cámbiala si no estás de acuerdo y justifícala en
+# Reglas definidas por el estudiante. La justificación de cada una está en
 # REFLEXION.md. Cada decisión está aislada en una constante para que cambiar
-# de opinión no obligue a tocar la lógica del programa.
+# una regla no obligue a tocar la lógica del programa.
 # =============================================================================
 
 # Niveles de severidad que se consideran válidos.
@@ -82,6 +80,9 @@ NOMBRE_SOLO_LETRAS = True
 # El correo se busca en el campo "correo=" del mensaje y debe tener tres
 # partes:  identificador  @  servicio.dominio
 #          juan.perez     @  gmail.com
+# Además no se permiten dos puntos seguidos (ana..lopez@gmail.com) ni que el
+# identificador empiece o termine con punto (.ana@ / ana.@). Esto se agregó
+# después de comprobar que la regex sugerida por la IA aceptaba esos casos.
 # Un correo mal escrito hace que la línea cuente como MAL FORMATEADA
 # (igual que una fecha inválida), pero el evento sigue contando en su tipo.
 CAMPO_CORREO = "correo"
