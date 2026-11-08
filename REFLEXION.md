@@ -75,3 +75,16 @@ La IA escribe rápido código que "se ve bien" y que funciona con los casos norm
 También aprendí que las reglas no son una cuestión técnica sino de criterio. Si `Juan3 Pérez` es un nombre válido, si una línea sin fecha es un error o solo una advertencia, o dónde buscar un nombre dentro de un mensaje: ninguna de esas preguntas tiene una única respuesta correcta. Depende de para qué se usa el programa, y ese contexto lo tengo yo, no la IA. Por ejemplo, al elegir las reglas de nombres no marqué "solo letras", y eso dejaba pasar `Juan3 Pérez`. Cuando la IA me hizo ver esa consecuencia, decidí cambiarlo porque no tiene sentido para un nombre real. La IA me mostró qué implicaba mi elección, pero la decisión fue mía.
 
 Mi conclusión es que la IA me ahorró mucho tiempo en la parte de escribir código, pero yo sigo siendo responsable de qué hace ese código. Tengo que entender para qué sirve cada parte, decidir las reglas y comprobar que el resultado sea el correcto.
+
+## 5. Mi opinión sobre la IA
+
+Creo que la IA es una herramienta muy útil para programar. Me ayudó a avanzar mucho más rápido, me explicó partes del código que no conocía (como las expresiones regulares o `strptime`) y me propuso casos de prueba que yo no habría pensado.
+
+Pero no la veo como un reemplazo del programador. Puede equivocarse con total seguridad, no conoce el contexto de cada proyecto y no sabe qué reglas son las correctas para cada caso. Si yo no hubiera revisado y probado el código, el error de los correos habría pasado sin que nadie lo notara.
+
+El mayor riesgo que veo es usarla sin entender lo que produce: así no se aprende y no se pueden detectar sus errores. Por eso pienso seguir usándola, pero siempre revisando, probando y tomando yo las decisiones.
+
+---
+
+La evidencia de pruebas (archivos de prueba, resultados esperados y obtenidos, y capturas) está en el `README.md` y en la carpeta `capturas/` de este repositorio.
+

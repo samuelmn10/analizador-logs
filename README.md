@@ -36,15 +36,17 @@ python -m unittest -v test_analizador.py
 ## Estructura del proyecto
 
 ```
-analizador_logs/
-├── analizador_logs.py      # Script principal
-├── test_analizador.py      # Pruebas automáticas (28 casos)
+analizador-logs/
+├── analizador_logs.py           # Script principal
+├── test_analizador.py           # Pruebas automáticas (28 casos)
 ├── pruebas/
-│   ├── logs_buenos.txt     # Archivo bien formado
-│   ├── logs_malos.txt      # Archivo con errores e inconsistencias
-│   └── vacio.txt           # Archivo vacío
-├── README.md               # Este archivo (evidencias)
-└── REFLEXION.md            # Documento de reflexión técnica
+│   ├── logs_buenos.txt          # Archivo bien formado
+│   ├── logs_malos.txt           # Archivo con errores e inconsistencias
+│   └── vacio.txt                # Archivo vacío
+├── capturas/                    # Capturas de la ejecución (ver abajo)
+├── README.md                    # Este archivo (uso y evidencias de pruebas)
+├── REFLEXION.md                 # Reflexión técnica en texto
+└── Informe_analizador_logs.docx # Documento de reflexión técnica (Word)
 ```
 
 ## Formato esperado de cada línea
@@ -258,3 +260,23 @@ Ran 28 tests in 0.004s
 
 OK
 ```
+
+### Capturas de la ejecución
+
+Salida de consola al ejecutar el programa con los archivos de prueba.
+
+**1. Archivo bien formado:** 11 eventos y 0 líneas mal formateadas.
+
+![Salida con logs_buenos.txt](capturas/1_logs_buenos.png)
+
+**2. Antes de la corrección de correos:** se usa la versión anterior del código, recuperada del historial de git (commit `9cb67b0`). Hay 16 líneas mal formateadas y la línea 22 (`ana..lopez@gmail.com`) no aparece, aunque el correo es inválido.
+
+![Salida antes de la corrección](capturas/2_antes_correccion.png)
+
+**3. Después de la corrección:** la línea 22 aparece con "tiene dos puntos seguidos" y hay 17 líneas mal formateadas.
+
+![Salida después de la corrección](capturas/3_despues_correccion.png)
+
+**4. Pruebas automáticas:** `Ran 28 tests` y `OK`.
+
+![Pruebas automáticas](capturas/4_pruebas_automaticas.png)
