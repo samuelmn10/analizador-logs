@@ -194,6 +194,10 @@ def validar_correo(correo):
         return "falta el identificador antes de la @"
     if not servicio:
         return "falta el servicio después de la @"
+    if ".." in correo:
+        return "tiene dos puntos seguidos"
+    if identificador.startswith(".") or identificador.endswith("."):
+        return "el identificador no puede empezar ni terminar con punto"
     if "." not in servicio:
         return "el servicio no tiene dominio (ej: .com)"
     if not PATRON_CORREO.match(correo):

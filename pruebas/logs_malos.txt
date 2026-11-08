@@ -19,3 +19,4 @@ User logged in without level
 [INFO] 2025-01-13 Login usuario= correo=ana@gmail.com
 [INFO] 2025-01-13 Login usuario=Ana López correo=ana@@gmail.com
 [ERROR] 2025-01-13 Login usuario=Juan3 Pérez correo=juan@gmail.com
+[INFO] 2025-01-13 Login usuario=Ana López correo=ana..lopez@gmail.com
