@@ -1,0 +1,18 @@
+{
+  "niveles_validos": ["INFO", "WARNING", "ERROR"],
+  "aceptar_nivel_en_minusculas": true,
+  "formato_fecha": "%Y-%m-%d",
+  "sin_fecha_es_incompleta": true,
+  "mensaje_obligatorio": true,
+  "ignorar_lineas_vacias": true,
+  "nombre": {
+    "campo": "usuario",
+    "mayuscula_inicial": true,
+    "acepta_tildes_y_enie": true,
+    "minimo_dos_palabras": true,
+    "solo_letras": true
+  },
+  "correo": {
+    "campo": "correo"
+  }
+}

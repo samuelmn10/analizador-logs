@@ -1,0 +1,27 @@
+{
+  "validador": {
+    "descripcion": "Valida cada línea con todas las reglas y muestra el resumen. No usa IA.",
+    "skills_linea": ["parsear_linea", "validar_nivel", "validar_fecha", "validar_mensaje", "validar_nombre", "validar_correo"],
+    "skills_reporte": ["resumir"],
+    "mostrar_detalle": true
+  },
+  "auditor_usuarios": {
+    "descripcion": "Revisa solo los datos de usuarios (nombres y correos). Ignora fechas y niveles mal escritos.",
+    "skills_linea": ["parsear_linea", "validar_nombre", "validar_correo"],
+    "skills_reporte": ["resumir"],
+    "mostrar_detalle": true
+  },
+  "analista": {
+    "descripcion": "Valida todo y además explica los errores y sugiere cómo corregirlos, con IA si está disponible.",
+    "skills_linea": ["parsear_linea", "validar_nivel", "validar_fecha", "validar_mensaje", "validar_nombre", "validar_correo"],
+    "skills_reporte": ["resumir", "explicar_errores"],
+    "mostrar_detalle": false,
+    "llm": {
+      "modelo": "claude-opus-5-5",
+      "max_tokens": 16000,
+      "esfuerzo": "medium",
+      "max_lineas_contexto": 50,
+      "prompt": "prompts/analista.md"
+    }
+  }
+}

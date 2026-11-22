@@ -1,0 +1,38 @@
+{
+  "linea_vacia": {
+    "titulo": "Líneas vacías",
+    "sugerencia": "Elimina las líneas en blanco del archivo."
+  },
+  "sin_corchetes": {
+    "titulo": "Sin nivel entre corchetes",
+    "sugerencia": "Agrega el nivel al inicio entre corchetes, por ejemplo: [INFO] 2025-01-10 mensaje."
+  },
+  "nivel_vacio": {
+    "titulo": "Nivel vacío",
+    "sugerencia": "Escribe el nivel dentro de los corchetes: INFO, WARNING o ERROR."
+  },
+  "nivel_desconocido": {
+    "titulo": "Nivel desconocido",
+    "sugerencia": "Usa solo los niveles INFO, WARNING o ERROR."
+  },
+  "falta_fecha": {
+    "titulo": "Falta la fecha",
+    "sugerencia": "Agrega la fecha después del nivel con el formato AAAA-MM-DD."
+  },
+  "fecha_invalida": {
+    "titulo": "Fecha inválida",
+    "sugerencia": "Corrige la fecha: debe existir y usar el formato AAAA-MM-DD, por ejemplo 2025-01-10."
+  },
+  "falta_mensaje": {
+    "titulo": "Falta el mensaje",
+    "sugerencia": "Agrega un mensaje que describa el evento después de la fecha."
+  },
+  "nombre_invalido": {
+    "titulo": "Nombre inválido",
+    "sugerencia": "Escribe nombre y apellido, cada palabra con mayúscula inicial y solo letras, por ejemplo: usuario=Ana López."
+  },
+  "correo_invalido": {
+    "titulo": "Correo inválido",
+    "sugerencia": "Usa el formato identificador@servicio.dominio, sin puntos seguidos ni punto al inicio o al final del identificador, por ejemplo: correo=ana.lopez@gmail.com."
+  }
+}
