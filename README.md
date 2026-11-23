@@ -93,8 +93,7 @@ analizador-logs/
 ├── pruebas/                     # Archivos de log de prueba
 ├── capturas/                    # Capturas de la Semana 3
 ├── NOTA_TECNICA.md              # Refactorización, skills y agentes
-├── REFLEXION.md                 # Reflexión de la Semana 3
-└── Informe_analizador_logs.docx # Informe de la Semana 3
+└── REFLEXION.md                 # Reflexión de la Semana 3
 ```
 
 ---
