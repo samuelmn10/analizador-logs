@@ -125,6 +125,10 @@ El problema más frecuente son los correos inválidos (6 líneas), seguidos de l
 - **Nombre inválido (4):** líneas 14, 15, 19, 21.
 ```
 
+Captura de esa ejecución, antes de la corrección:
+
+![Salida del agente analista antes de la corrección: Claude dice 6 correos inválidos y se corrige con "(Son 5 líneas.)"](capturas/v2/analista_antes_conteo.png)
+
 Comparando con el validador, los números reales son **5 correos** y **4 nombres**. La IA se contradijo en la misma respuesta: escribió 6 y luego se corrigió sola, y dijo 5 nombres en el diagnóstico pero listó 4. La respuesta sonaba segura, pero los datos estaban mal.
 
 Yo detecté el error comparando la salida con el detalle del validador. La IA propuso la corrección (calcular el conteo en el código) y yo la aprobé. Esto confirma la regla principal del diseño: **la IA no decide ni cuenta los errores; solo explica lo que mis reglas ya encontraron.**
