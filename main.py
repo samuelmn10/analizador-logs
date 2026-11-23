@@ -14,7 +14,7 @@ from pathlib import Path
 
 from analizador import skills
 from analizador.agente import crear_agente
-from analizador.config import CARPETA_CONFIG, ErrorConfiguracion, cargar_agentes
+from analizador.config import CARPETA_CONFIG, ErrorConfiguracion, cargar_agentes, cargar_env
 from analizador.llm import ClienteClaude, ErrorLLM
 from analizador.salida import mostrar_reporte
 
@@ -36,6 +36,7 @@ def preparar_llm(definicion_tiene_llm, sin_ia):
         return None, ""
     if sin_ia:
         return None, "desactivada con --sin-ia"
+    cargar_env()  # lee ANTHROPIC_API_KEY desde .env, si existe
     try:
         return ClienteClaude(), ""
     except ErrorLLM as e:

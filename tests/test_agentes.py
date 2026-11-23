@@ -132,6 +132,30 @@ class TestConfiguracion(unittest.TestCase):
             crear_agente("no_existe", self.carpeta)
 
 
+class TestArchivoEnv(unittest.TestCase):
+
+    def test_cargar_env(self):
+        import os
+        from analizador.config import cargar_env
+        with tempfile.TemporaryDirectory() as carpeta:
+            ruta = Path(carpeta) / ".env"
+            ruta.write_text('# comentario\nPRUEBA_CLAVE_ENV="valor de prueba"\n\nlinea sin igual\n', encoding="utf-8")
+            os.environ.pop("PRUEBA_CLAVE_ENV", None)
+            try:
+                self.assertEqual(cargar_env(ruta), ["PRUEBA_CLAVE_ENV"])
+                self.assertEqual(os.environ["PRUEBA_CLAVE_ENV"], "valor de prueba")
+                # Una variable que ya existe no se sobrescribe.
+                ruta.write_text("PRUEBA_CLAVE_ENV=otro\n", encoding="utf-8")
+                self.assertEqual(cargar_env(ruta), [])
+                self.assertEqual(os.environ["PRUEBA_CLAVE_ENV"], "valor de prueba")
+            finally:
+                os.environ.pop("PRUEBA_CLAVE_ENV", None)
+
+    def test_sin_archivo_env(self):
+        from analizador.config import cargar_env
+        self.assertEqual(cargar_env(Path("no_existe/.env")), [])
+
+
 class TestLineaDeComandos(unittest.TestCase):
 
     def ejecutar(self, *argumentos):

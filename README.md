@@ -57,11 +57,13 @@ Instala el paquete:
 pip3 install -r requirements.txt
 ```
 
-Configura tu API key en la terminal (no la guardes en ningún archivo del repositorio):
+Copia `.env.example` con el nombre `.env`:
 
 ```bash
-export ANTHROPIC_API_KEY="tu-api-key"
+cp .env.example .env
 ```
+
+Abre `.env` y reemplaza `pega-aqui-tu-api-key` por tu API key. El archivo `.env` está en `.gitignore`, así que **nunca se sube a GitHub**. También puedes usar la variable de la terminal (`export ANTHROPIC_API_KEY=...`), que tiene prioridad sobre el `.env`.
 
 ## Pruebas automáticas
 
@@ -69,7 +71,7 @@ export ANTHROPIC_API_KEY="tu-api-key"
 python3 -m unittest discover -s tests -v
 ```
 
-Son 56 pruebas: las 28 de la Semana 3 sin cambios, 13 de skills y 15 de agentes. No llaman a la API.
+Son 58 pruebas: las 28 de la Semana 3 sin cambios, 13 de skills y 17 de agentes y configuración. No llaman a la API.
 
 ## Estructura del proyecto
 
@@ -90,6 +92,7 @@ analizador-logs/
 │   ├── sugerencias.json         # Sugerencias sin IA
 │   └── prompts/analista.md      # Instrucciones del agente analista
 ├── tests/                       # Pruebas automáticas
+├── .env.example                 # Plantilla para la API key (copiar como .env)
 ├── pruebas/                     # Archivos de log de prueba
 ├── capturas/                    # Capturas de la Semana 3
 ├── NOTA_TECNICA.md              # Refactorización, skills y agentes

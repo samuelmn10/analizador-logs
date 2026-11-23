@@ -78,6 +78,7 @@ Para que use IA se agrega un bloque `"llm"` con `modelo`, `max_tokens`, `esfuerz
 ## 5. Uso de la IA dentro del sistema
 
 - **La IA no decide qué es un error.** Las skills de validación detectan los problemas con reglas fijas; `explicar_errores` solo recibe esos resultados y los explica. El prompt (`config/prompts/analista.md`) le prohíbe inventar problemas o cambiar las reglas, y le indica tratar las líneas del log como datos y no como instrucciones.
+- **La API key va en un archivo `.env`** (plantilla en `.env.example`), que está en `.gitignore` y nunca se sube al repositorio.
 - **Es opcional.** El paquete `anthropic` no es obligatorio. Sin él, sin API key, con `--sin-ia` o si la API falla, la explicación se genera con `config/sugerencias.json`, y la consola indica el motivo.
 - **Modelo:** `claude-sonnet-5-5`, con esfuerzo `medium`. Si el modelo rechaza la solicitud por sus filtros de seguridad, la API la reintenta automáticamente con otro modelo (`fallbacks="default"`).
 - **Costo aproximado:** unos centavos de dólar por análisis del archivo de prueba. Solo se llama a la API si el archivo tiene errores.
@@ -92,7 +93,7 @@ python3 -m unittest discover -s tests -v
 |---|---|---|
 | `tests/test_semana3.py` | 28 | Las pruebas de la Semana 3, **sin cambiar ningún caso**, siguen pasando: la refactorización no cambió el comportamiento. |
 | `tests/test_skills.py` | 13 | Cada skill funciona sola y el registro rechaza skills desconocidas o de otro tipo. |
-| `tests/test_agentes.py` | 15 | Los tres agentes, la personalización desde JSON, los errores de configuración, la consola y la skill de IA con un modelo simulado (sin gastar dinero). |
+| `tests/test_agentes.py` | 17 | Los tres agentes, la personalización desde JSON, los errores de configuración, la lectura del `.env`, la consola y la skill de IA con un modelo simulado (sin gastar dinero). |
 
 ## 7. Cambios que hice a lo que propuso la IA
 

@@ -120,3 +120,33 @@ def cargar_agentes(carpeta: Path = CARPETA_CONFIG) -> dict[str, DefinicionAgente
 
 def cargar_sugerencias(carpeta: Path = CARPETA_CONFIG) -> dict[str, str]:
     return _leer_json(Path(carpeta) / "sugerencias.json")
+
+
+ARCHIVO_ENV = CARPETA_CONFIG.parent / ".env"
+
+
+def cargar_env(ruta: Path = ARCHIVO_ENV) -> list[str]:
+    """Carga variables de un archivo .env (formato CLAVE=valor) al entorno.
+
+    Sirve para guardar la API key fuera del código. El archivo .env está en
+    .gitignore, así que nunca se sube al repositorio. Una variable que ya
+    existe en la terminal tiene prioridad sobre la del archivo.
+    Devuelve los nombres de las variables cargadas (nunca sus valores).
+    """
+    import os
+
+    ruta = Path(ruta)
+    if not ruta.is_file():
+        return []
+    cargadas = []
+    for linea in ruta.read_text(encoding="utf-8").splitlines():
+        linea = linea.strip()
+        if not linea or linea.startswith("#") or "=" not in linea:
+            continue
+        clave, valor = linea.split("=", 1)
+        clave = clave.removeprefix("export ").strip()
+        valor = valor.strip().strip('"').strip("'")
+        if clave and clave not in os.environ:
+            os.environ[clave] = valor
+            cargadas.append(clave)
+    return cargadas
