@@ -57,7 +57,7 @@ class TestAgentes(unittest.TestCase):
         llm = LLMFalso("El problema más común son los correos.")
         r = crear_agente("analista", llm=llm).analizar_archivo(MALOS)
         self.assertEqual(r.explicacion, "El problema más común son los correos.")
-        self.assertEqual(r.explicacion_fuente, "IA (claude-opus-5-5)")
+        self.assertEqual(r.explicacion_fuente, "IA (claude-sonnet-5-5)")
         # El modelo recibe el resumen y las líneas con su motivo.
         enviado = llm.mensajes[0]
         self.assertIn("Líneas mal formateadas: 17", enviado)

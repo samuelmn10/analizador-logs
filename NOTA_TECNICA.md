@@ -60,7 +60,7 @@ Todos los agentes usan la misma clase `Agente`; lo que los diferencia está en `
 |---|---|---|
 | `validador` | todas las de línea + `resumir` | El mismo resultado que la Semana 3. No usa IA. |
 | `auditor_usuarios` | `parsear_linea`, `validar_nombre`, `validar_correo` + `resumir` | Solo revisa los datos de usuarios; ignora fechas y niveles. |
-| `analista` | todas + `resumir` + `explicar_errores` | Valida y explica los errores con Claude. Sin detalle línea por línea, porque la explicación ya lo resume. |
+| `analista` | todas + `resumir` + `explicar_errores` | Valida, muestra el detalle línea por línea y explica los errores con Claude. |
 
 **Plantilla para crear un agente nuevo** (agregar en `config/agentes.json`, sin tocar código):
 
@@ -79,7 +79,7 @@ Para que use IA se agrega un bloque `"llm"` con `modelo`, `max_tokens`, `esfuerz
 
 - **La IA no decide qué es un error.** Las skills de validación detectan los problemas con reglas fijas; `explicar_errores` solo recibe esos resultados y los explica. El prompt (`config/prompts/analista.md`) le prohíbe inventar problemas o cambiar las reglas, y le indica tratar las líneas del log como datos y no como instrucciones.
 - **Es opcional.** El paquete `anthropic` no es obligatorio. Sin él, sin API key, con `--sin-ia` o si la API falla, la explicación se genera con `config/sugerencias.json`, y la consola indica el motivo.
-- **Modelo:** `claude-opus-5-5`, con esfuerzo `medium`. Si el modelo rechaza la solicitud por sus filtros de seguridad, la API la reintenta automáticamente con otro modelo (`fallbacks="default"`).
+- **Modelo:** `claude-sonnet-5-5`, con esfuerzo `medium`. Si el modelo rechaza la solicitud por sus filtros de seguridad, la API la reintenta automáticamente con otro modelo (`fallbacks="default"`).
 - **Costo aproximado:** unos centavos de dólar por análisis del archivo de prueba. Solo se llama a la API si el archivo tiene errores.
 
 ## 6. Pruebas
@@ -96,10 +96,20 @@ python3 -m unittest discover -s tests -v
 
 ## 7. Cambios que hice a lo que propuso la IA
 
-> **Por completar por el estudiante.** Anota aquí 2 o 3 cambios concretos que hiciste a lo que propuso la IA en esta tarea: qué propuso, qué cambiaste y por qué.
+Para esta tarea le pedí a la IA (Claude) aplicar la refactorización a mi proyecto de la Semana 3. **La IA propuso la arquitectura** (configuración en `config/`, skills en `analizador/skills/` y agentes definidos en JSON) y escribió el código. Yo tomé estas decisiones antes de empezar:
 
-1. *[Qué propuso la IA → qué cambié → por qué]*
-2. *[...]*
-3. *[...]*
+- **Usar el analizador de logs como proyecto base.**
+- **Que la IA sea opcional:** el programa tiene que funcionar sin API key, para que el profesor pueda ejecutarlo sin costo.
+- **Trabajar en una rama nueva** (`refactor-agentes`) para no modificar la entrega de la Semana 3.
 
-De la Semana 3, la corrección del validador de correos (la regex aceptaba `ana..lopez@gmail.com`) se mantiene en la skill `validar_correo`.
+Después revisé lo que propuso la IA y cambié tres cosas:
+
+| # | Qué propuso la IA | Qué cambié | Por qué |
+|---|---|---|---|
+| 1 | Usar el modelo `claude-opus-5-5`, el más capaz de su línea. | Lo cambié a `claude-sonnet-5-5` en `config/agentes.json`. | Explicar los errores de un log no necesita el modelo más capaz, y Sonnet 5.5 cuesta la mitad. |
+| 2 | Que el agente `analista` no mostrara el detalle línea por línea, solo la explicación de la IA. | Activé `"mostrar_detalle": true` para el `analista`. | Para corregir el archivo necesito ver cada línea con su error, no solo un resumen escrito por la IA. |
+| 3 | Que la explicación de la IA tuviera hasta 300 palabras. | Lo bajé a 150 palabras en `config/prompts/analista.md`. | En la consola se lee más rápido y la respuesta cuesta menos. |
+
+Los tres cambios fueron solo de configuración, sin tocar el código. Eso confirma que la separación entre lógica, configuración y comportamiento funciona.
+
+De la Semana 3 se mantiene la corrección del validador de correos (la regex de la IA aceptaba `ana..lopez@gmail.com`), ahora dentro de la skill `validar_correo`.
