@@ -2,7 +2,7 @@
 
 Programa en Python que analiza un archivo de registros de eventos (logs) y muestra en consola el total de eventos, la cantidad por tipo (INFO / WARNING / ERROR) y las líneas mal formateadas con su motivo.
 
-**Versión 2 (rama `refactor-agentes`):** el código está organizado en **skills** reutilizables y **agentes** configurables, y el agente `analista` puede explicar los errores con IA (Claude). La explicación técnica completa está en [`NOTA_TECNICA.md`](NOTA_TECNICA.md). La versión de la Semana 3 está en la etiqueta `semana3`.
+**Versión 2:** el código está organizado en **skills** reutilizables y **agentes** configurables, y el agente `analista` puede explicar los errores con IA (Claude). La explicación técnica completa está en [`NOTA_TECNICA.md`](NOTA_TECNICA.md). La versión entregada en la Semana 3 está en el commit [`a472abd`](https://github.com/samuelmn10/analizador-logs/tree/a472abd).
 
 ## Requisitos
 
@@ -103,7 +103,7 @@ analizador-logs/
 
 # Semana 3: reglas y evidencias
 
-> Esta sección documenta la entrega de la Semana 3 (etiqueta `semana3`). Las salidas y comandos son los de esa versión; en la versión 2 la salida agrega la línea "Agente: ...".
+> Esta sección documenta la entrega de la Semana 3 (commit [`a472abd`](https://github.com/samuelmn10/analizador-logs/tree/a472abd)). Las salidas y comandos son los de esa versión; en la versión 2 la salida agrega la línea "Agente: ...".
 
 ## Formato esperado de cada línea
 

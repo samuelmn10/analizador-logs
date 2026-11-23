@@ -1,6 +1,6 @@
 # Nota técnica: refactorización en skills y agentes
 
-**Proyecto base:** analizador de logs de la Semana 3 (etiqueta `semana3` del repositorio).
+**Proyecto base:** analizador de logs de la Semana 3 (commit [`a472abd`](https://github.com/samuelmn10/analizador-logs/tree/a472abd) del repositorio).
 **Objetivo:** separar lógica, configuración y comportamiento, encapsular cada capacidad en una skill propia y armar agentes personalizados a partir de esas skills.
 
 ## 1. Problemas del código original
@@ -101,7 +101,7 @@ Para esta tarea le pedí a la IA (Claude) aplicar la refactorización a mi proye
 
 - **Usar el analizador de logs como proyecto base.**
 - **Que la IA sea opcional:** el programa tiene que funcionar sin API key, para que el profesor pueda ejecutarlo sin costo.
-- **Trabajar en una rama nueva** (`refactor-agentes`) para no modificar la entrega de la Semana 3.
+- **Trabajar en una rama nueva** (`refactor-agentes`) para no modificar la entrega de la Semana 3, y unirla a `main` al terminar para que el repositorio muestre la versión nueva.
 
 Después revisé lo que propuso la IA y cambié cuatro cosas:
 
