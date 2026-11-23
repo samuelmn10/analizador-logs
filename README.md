@@ -45,8 +45,7 @@ analizador-logs/
 │   └── vacio.txt                # Archivo vacío
 ├── capturas/                    # Capturas de la ejecución (ver abajo)
 ├── README.md                    # Este archivo (uso y evidencias de pruebas)
-├── REFLEXION.md                 # Reflexión técnica en texto
-└── Informe_analizador_logs.docx # Documento de reflexión técnica (Word)
+└── REFLEXION.md                 # Documento de reflexión técnica
 ```
 
 ## Formato esperado de cada línea
