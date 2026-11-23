@@ -1,0 +1,3 @@
+# Opcional: solo lo usa el agente "analista" para explicar errores con Claude.
+# Sin este paquete el programa funciona igual, con una explicación basada en reglas.
+anthropic>=2.12.0

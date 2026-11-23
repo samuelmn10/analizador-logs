@@ -1,52 +1,109 @@
 # Analizador de logs
 
-Script en Python que analiza un archivo de texto con registros de eventos (logs) y muestra en consola:
+Programa en Python que analiza un archivo de registros de eventos (logs) y muestra en consola el total de eventos, la cantidad por tipo (INFO / WARNING / ERROR) y las líneas mal formateadas con su motivo.
 
-- Total de eventos
-- Cantidad de eventos por tipo (INFO / WARNING / ERROR)
-- Número de líneas mal formateadas o incompletas, con el motivo de cada una
+**Versión 2:** el código está organizado en **skills** reutilizables y **agentes** configurables, y el agente `analista` puede explicar los errores con IA (Claude). La explicación técnica completa está en [`NOTA_TECNICA.md`](NOTA_TECNICA.md). La versión entregada en la Semana 3 está en el commit [`a472abd`](https://github.com/samuelmn10/analizador-logs/tree/a472abd).
 
 ## Requisitos
 
-- Python 3.8 o superior
-- No necesita librerías externas (solo `re`, `datetime`, `pathlib`, `sys`)
+- Python 3.10 o superior.
+- Sin librerías externas para validar. Solo el agente `analista`, para usar IA, necesita el paquete `anthropic` y una API key de Anthropic. Sin ellos funciona igual, con una explicación basada en reglas.
 
 ## Cómo ejecutarlo
 
-> En Mac (y algunos Linux) el comando se llama `python3` en vez de `python`.
+> En Mac el comando se llama `python3`.
 
-Para indicar el archivo al ejecutar:
-
-```bash
-python analizador_logs.py pruebas/logs_buenos.txt
-```
-
-Sin argumentos, el programa pregunta la ruta:
+Validar un archivo (agente `validador`, el mismo resultado que la Semana 3):
 
 ```bash
-python analizador_logs.py
+python3 main.py pruebas/logs_malos.txt
 ```
 
-Para ejecutar las pruebas automáticas:
+Revisar solo nombres y correos:
 
 ```bash
-python -m unittest -v test_analizador.py
+python3 main.py pruebas/logs_malos.txt --agente auditor_usuarios
 ```
+
+Validar y explicar los errores (con IA si está configurada):
+
+```bash
+python3 main.py pruebas/logs_malos.txt --agente analista
+```
+
+Lo mismo, sin llamar a la IA:
+
+```bash
+python3 main.py pruebas/logs_malos.txt --agente analista --sin-ia
+```
+
+Ver los agentes y skills disponibles:
+
+```bash
+python3 main.py --listar
+```
+
+El comando de la Semana 3 sigue funcionando:
+
+```bash
+python3 analizador_logs.py pruebas/logs_malos.txt
+```
+
+### Usar la IA (opcional)
+
+Instala el paquete:
+
+```bash
+pip3 install -r requirements.txt
+```
+
+Copia `.env.example` con el nombre `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Abre `.env` y reemplaza `pega-aqui-tu-api-key` por tu API key. El archivo `.env` está en `.gitignore`, así que **nunca se sube a GitHub**. También puedes usar la variable de la terminal (`export ANTHROPIC_API_KEY=...`), que tiene prioridad sobre el `.env`.
+
+## Pruebas automáticas
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+Son 58 pruebas: las 28 de la Semana 3 sin cambios, 13 de skills y 17 de agentes y configuración. No llaman a la API.
 
 ## Estructura del proyecto
 
 ```
 analizador-logs/
-├── analizador_logs.py           # Script principal
-├── test_analizador.py           # Pruebas automáticas (28 casos)
-├── pruebas/
-│   ├── logs_buenos.txt          # Archivo bien formado
-│   ├── logs_malos.txt           # Archivo con errores e inconsistencias
-│   └── vacio.txt                # Archivo vacío
-├── capturas/                    # Capturas de la ejecución (ver abajo)
-├── README.md                    # Este archivo (uso y evidencias de pruebas)
-└── REFLEXION.md                 # Documento de reflexión técnica
+├── main.py                      # Línea de comandos
+├── analizador_logs.py           # Compatibilidad con la Semana 3
+├── analizador/
+│   ├── agente.py                # Clase Agente: ejecuta las skills de su configuración
+│   ├── config.py                # Carga los JSON de config/
+│   ├── modelos.py               # LineaContexto, Problema, Reporte
+│   ├── llm.py                   # Cliente opcional de Claude
+│   ├── salida.py                # Formato de consola
+│   └── skills/                  # Una skill por archivo
+├── config/
+│   ├── reglas.json              # Reglas de validación
+│   ├── agentes.json             # Definición de los agentes
+│   ├── sugerencias.json         # Sugerencias sin IA
+│   └── prompts/analista.md      # Instrucciones del agente analista
+├── tests/                       # Pruebas automáticas
+├── .env.example                 # Plantilla para la API key (copiar como .env)
+├── pruebas/                     # Archivos de log de prueba
+├── capturas/                    # Capturas de la Semana 3
+├── NOTA_TECNICA.md              # Refactorización, skills y agentes
+└── REFLEXION.md                 # Reflexión de la Semana 3
 ```
+
+---
+
+# Semana 3: reglas y evidencias
+
+> Esta sección documenta la entrega de la Semana 3 (commit [`a472abd`](https://github.com/samuelmn10/analizador-logs/tree/a472abd)). Las salidas y comandos son los de esa versión; en la versión 2 la salida agrega la línea "Agente: ...".
 
 ## Formato esperado de cada línea
 
@@ -109,7 +166,7 @@ Otros casos:
 - **Nivel en minúsculas** (`[info]`): se acepta y se cuenta como INFO.
 - **Archivo inexistente o vacío:** se muestra un mensaje claro y el programa no falla.
 
-> Todas estas reglas se configuran al inicio de `analizador_logs.py`, en la sección "REGLAS DE VALIDACIÓN". La justificación de cada una está en `REFLEXION.md`.
+> En la Semana 3 estas reglas estaban al inicio de `analizador_logs.py`. En la versión 2 se configuran en `config/reglas.json`. La justificación de cada una está en `REFLEXION.md`.
 
 ---
 

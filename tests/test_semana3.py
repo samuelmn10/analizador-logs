@@ -1,12 +1,11 @@
 """
-Pruebas automáticas del analizador.
+Pruebas de la Semana 3 (sin cambios en los casos).
 
-Ejecutar con:
-    python -m unittest -v test_analizador.py
+Se mantienen como pruebas de regresión: si siguen pasando después de la
+refactorización en skills y agentes, el comportamiento no cambió.
 
-Cada prueba documenta un caso borde y el resultado ESPERADO según las
-reglas definidas en analizador_logs.py. Si cambias una regla, ajusta
-también la prueba correspondiente.
+Ejecutar todas las pruebas con:
+    python3 -m unittest discover -s tests -v
 """
 
 import unittest
@@ -14,7 +13,7 @@ from pathlib import Path
 
 from analizador_logs import analizar_archivo, analizar_linea
 
-CARPETA_PRUEBAS = Path(__file__).parent / "pruebas"
+CARPETA_PRUEBAS = Path(__file__).resolve().parent.parent / "pruebas"
 
 
 class TestLineas(unittest.TestCase):
