@@ -131,6 +131,10 @@ Captura de esa ejecución, antes de la corrección:
 
 Comparando con el validador, los números reales son **5 correos** y **4 nombres**. La IA se contradijo en la misma respuesta: escribió 6 y luego se corrigió sola, y dijo 5 nombres en el diagnóstico pero listó 4. La respuesta sonaba segura, pero los datos estaban mal.
 
-Yo detecté el error comparando la salida con el detalle del validador. La IA propuso la corrección (calcular el conteo en el código) y yo la aprobé. Esto confirma la regla principal del diseño: **la IA no decide ni cuenta los errores; solo explica lo que mis reglas ya encontraron.**
+Yo detecté el error comparando la salida con el detalle del validador. La IA propuso la corrección (calcular el conteo en el código) y yo la aprobé.
+
+Después de la corrección, la misma ejecución da los números correctos: **5 correos inválidos** y **4 nombres inválidos**, y cada tipo de problema por separado, igual que el validador:
+
+![Salida del agente analista después de la corrección: 5 correos y 4 nombres inválidos](capturas/v2/analista_despues_conteo.png) Esto confirma la regla principal del diseño: **la IA no decide ni cuenta los errores; solo explica lo que mis reglas ya encontraron.**
 
 De la Semana 3 se mantiene la corrección del validador de correos (la regex de la IA aceptaba `ana..lopez@gmail.com`), ahora dentro de la skill `validar_correo`.
