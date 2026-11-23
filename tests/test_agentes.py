@@ -62,6 +62,9 @@ class TestAgentes(unittest.TestCase):
         enviado = llm.mensajes[0]
         self.assertIn("Líneas mal formateadas: 17", enviado)
         self.assertIn("Línea 22:", enviado)
+        # Los conteos por tipo los calcula el programa, no la IA.
+        self.assertIn("- Correo inválido: 5 (líneas 16, 17, 18, 20, 22)", enviado)
+        self.assertIn("- Nombre inválido: 4 (líneas 14, 15, 19, 21)", enviado)
         self.assertIn("tiene dos puntos seguidos", enviado)
 
     def test_analista_sin_ia_usa_reglas(self):

@@ -103,14 +103,30 @@ Para esta tarea le pedí a la IA (Claude) aplicar la refactorización a mi proye
 - **Que la IA sea opcional:** el programa tiene que funcionar sin API key, para que el profesor pueda ejecutarlo sin costo.
 - **Trabajar en una rama nueva** (`refactor-agentes`) para no modificar la entrega de la Semana 3.
 
-Después revisé lo que propuso la IA y cambié tres cosas:
+Después revisé lo que propuso la IA y cambié cuatro cosas:
 
 | # | Qué propuso la IA | Qué cambié | Por qué |
 |---|---|---|---|
 | 1 | Usar el modelo `claude-opus-5-5`, el más capaz de su línea. | Lo cambié a `claude-sonnet-5-5` en `config/agentes.json`. | Explicar los errores de un log no necesita el modelo más capaz, y Sonnet 5.5 cuesta la mitad. |
 | 2 | Que el agente `analista` no mostrara el detalle línea por línea, solo la explicación de la IA. | Activé `"mostrar_detalle": true` para el `analista`. | Para corregir el archivo necesito ver cada línea con su error, no solo un resumen escrito por la IA. |
 | 3 | Que la explicación de la IA tuviera hasta 300 palabras. | Lo bajé a 150 palabras en `config/prompts/analista.md`. | En la consola se lee más rápido y la respuesta cuesta menos. |
+| 4 | Enviarle a Claude solo la lista de líneas con error y dejar que él contara los problemas. | Ahora el programa calcula el conteo por tipo y se lo envía ya hecho, y el prompt le indica usar esos números sin contar (`explicar_errores.py` y `analista.md`). | Ver el ejemplo de abajo: Claude contó mal. Los números tienen que salir de mis reglas; la IA solo los redacta. |
 
-Los tres cambios fueron solo de configuración, sin tocar el código. Eso confirma que la separación entre lógica, configuración y comportamiento funciona.
+Los cambios 1 a 3 fueron solo de configuración, sin tocar el código. Eso confirma que la separación entre lógica, configuración y comportamiento funciona.
+
+### Ejemplo: la IA contó mal y lo detecté
+
+Al ejecutar el agente `analista` con la API real (Claude Sonnet 5.5) sobre `pruebas/logs_malos.txt`, la explicación decía:
+
+```
+El problema más frecuente son los correos inválidos (6 líneas), seguidos de los nombres y las fechas (5 y 3 líneas, respectivamente).
+...
+- **Correo inválido (6):** líneas 16, 17, 18, 20, 22. *(Son 5 líneas.)*
+- **Nombre inválido (4):** líneas 14, 15, 19, 21.
+```
+
+Comparando con el validador, los números reales son **5 correos** y **4 nombres**. La IA se contradijo en la misma respuesta: escribió 6 y luego se corrigió sola, y dijo 5 nombres en el diagnóstico pero listó 4. La respuesta sonaba segura, pero los datos estaban mal.
+
+Yo detecté el error comparando la salida con el detalle del validador. La IA propuso la corrección (calcular el conteo en el código) y yo la aprobé. Esto confirma la regla principal del diseño: **la IA no decide ni cuenta los errores; solo explica lo que mis reglas ya encontraron.**
 
 De la Semana 3 se mantiene la corrección del validador de correos (la regex de la IA aceptaba `ana..lopez@gmail.com`), ahora dentro de la skill `validar_correo`.

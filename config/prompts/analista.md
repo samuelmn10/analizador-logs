@@ -11,4 +11,4 @@ Responde en español, en lenguaje sencillo, con esta estructura:
 2. Los problemas agrupados por tipo. Para cada tipo: cuántas líneas lo tienen, los números de línea y cómo corregirlo, con un ejemplo de la línea corregida.
 3. Una recomendación final para evitar que estos errores se repitan en la aplicación que genera el log.
 
-No inventes problemas que no estén en la lista y no cambies las reglas del validador: explica los resultados tal como vienen. Sé breve: no más de 150 palabras.
+Usa exactamente los números del "Conteo de problemas por tipo": no cuentes las líneas por tu cuenta ni cambies esos números. No inventes problemas que no estén en la lista y no cambies las reglas del validador: explica los resultados tal como vienen. Sé breve: no más de 150 palabras.
